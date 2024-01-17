@@ -1,13 +1,14 @@
 <?php
 namespace App\DataTables;
 
+use App\Models\EmployerDetail;
 use App\Models\Job;
-use Yajra\DataTables\Html\Column;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
 
 class JobsDataTable extends DataTable
 {
@@ -37,20 +38,19 @@ class JobsDataTable extends DataTable
 
             ->setRowId('id');
     }
-
-    /**
-     * Get the query source of dataTable.
-     */
     public function query(Job $model): QueryBuilder
     {
-        $employerId = Auth::id();
+        $employerId = EmployerDetail::where('user_id', Auth::id())->value('id');
 
         return $model->newQuery()->where('employer_id', $employerId);
     }
 
-    /**
-     * Optional method if you want to use the html builder.
-     */
+    // public function query(Job $model): QueryBuilder
+    // {
+    //     $employerId = Auth::user()->employerDetail->id;
+
+    //     return $model->newQuery()->where('employer_id', $employerId);
+    // }
     public function html(): HtmlBuilder
     {
         return $this->builder()
@@ -80,7 +80,7 @@ class JobsDataTable extends DataTable
             Column::make('skills'),
             Column::make('posted_date'),
             Column::make('application_end_date'),
-            // Column::make('description'),
+            Column::make('description'),
 
             Column::make('status')
                 ->title('Status')

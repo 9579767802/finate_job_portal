@@ -15,7 +15,7 @@ class AdminController extends Controller
         return $datatable->render('Admin.employerlist');
     }
 
-    public function profile($id)
+    public function adminProfile($id)
     {
 // dd($id);
         $admin = User::where('id', $id)->first();

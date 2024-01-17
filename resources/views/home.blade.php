@@ -327,7 +327,6 @@
                     </div>
                 </div>
             </section>
-
             <section class="team-area">
                 <div class="container" data-aos="fade-down">
                     <div class="row">

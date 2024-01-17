@@ -34,7 +34,7 @@
                                         <ul class="submenu-nav">
                                             <li>
                                                 <a
-                                                    href="{{ route('profile', auth()->user()->id) }}"><span>Profile</span></a>
+                                                    href="{{ route('candidate.edit', auth()->user()->id) }}"><span>Profile</span></a>
                                             </li>
 
                                             <li><a href="{{ route('logout') }}"

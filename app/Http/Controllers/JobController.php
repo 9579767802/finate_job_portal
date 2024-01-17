@@ -57,17 +57,16 @@ class JobController extends Controller
             'application_end_date' => 'required|date|after:posted_date',
             'salary' => 'required|numeric',
             'experience' => 'required|numeric',
-            'gender' => 'required|in:Male,Female,Other',
+            'gender' => 'required|in:male,female,other',
             'qualification' => 'required',
             'level' => 'required',
             'description' => 'required',
             'skills' => 'required',
         ]);
         $data['user_id'] = Auth::id();
-        dd($data);
         $data['employer_id'] = EmployerDetail::where('user_id', Auth::id())->value('id');
         Job::create($data);
-
+// dd($data);
         return redirect()->route('jobs.index');
     }
 

@@ -48,7 +48,7 @@ Route::get('/admin/details', [AdminController::class, 'showDetails'])->name('adm
 
 Route::get('/admin/candidatelist', [AdminController::class, 'showCandidateList'])->name('admin.candidatelist');
 
-Route::get('/profile/{id}', [AdminController::class, 'Profile'])->name('admin.profile');
+Route::get('/profile/{id}', [AdminController::class, 'adminProfile'])->name('admin.profile');
 Route::put('/employers/update/{id}', [AdminController::class, 'update'])->name('admin.update');
 
 

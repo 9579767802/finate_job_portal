@@ -5,6 +5,7 @@ import candidateListAction from "./candidateListAction";
 import candidate from "./site-assets/candidate";
 import jobs from "./site-assets/jobs";
 import editJobValidation from "./site-assets/jobs-Edit";
+import resumeDownload from "./resumeDownload";
 
 
 let var_token = $('meta[name="csrf-token"]').attr('content');
@@ -22,5 +23,7 @@ const register = (() => {
    employers();
    jobs();
    editJobValidation();
+   resumeDownload();
+
 });
 register();

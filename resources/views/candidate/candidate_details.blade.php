@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
 
-<section class="team-details-area">
+        <section class="team-details-area">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -24,8 +24,11 @@
                             </div>
                             <div class="team-details-btn" data-candidate-id="{{ $jobAppliedCandidate->id }}">
                                 <button type="button" class="btn-theme btn-light" id="shortlistBtn">Short List</button>
-                                <button type="button" class="btn-theme" id="downloadResumeBtn">Download Resume</button>
+
+                                <a href="{{ route('candidate.downloadResume', $jobAppliedCandidate->id) }}"
+                                    id="downloadResumeBtn" class="btn btn-outline-success">Download Resume</a>
                             </div>
+
                         </div>
                     </div>
                 </div>

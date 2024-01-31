@@ -27,18 +27,17 @@ class CandidateDetail extends Model
         'professional_skill',
         'software_skill',
         'page',
+        'resume',
     ];
-
 
     public function jobs()
     {
         return $this->belongsToMany(Job::class, 'job_candidates', 'user_id', 'job_id');
     }
     // In your CandidateDetail model
-public function showApplyJobs()
-{
-    return $this->belongsToMany(Job::class, 'job_candidates', 'candidate_id', 'job_id');
-}
-
+    public function showApplyJobs()
+    {
+        return $this->belongsToMany(Job::class, 'job_candidates', 'candidate_id', 'job_id');
+    }
 
 }

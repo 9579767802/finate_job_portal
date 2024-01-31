@@ -29,7 +29,7 @@
                     <div class="widget-item widget-about">
                         <div class="widget-logo-area">
                             <a href="index.html">
-                                <img class="logo-main" src="assets/img/logo-light-theme.png"
+                                <img class="logo-main" src="{{ asset('assets/img/logo-light.png') }}"
                                     alt="Logo" />
                             </a>
                         </div>

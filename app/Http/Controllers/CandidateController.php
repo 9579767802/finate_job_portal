@@ -50,29 +50,6 @@ class CandidateController extends Controller
         return view('candidate.create');
     }
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'designation' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'contact_number' => 'required|string|max:20',
-            'user_profile' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'age' => 'required|integer',
-            'gender' => 'required|in:male,female,other',
-            'experience' => 'required|integer',
-            'description' => 'required|string',
-            'language' => 'nullable|string|max:255',
-            'qualification' => 'nullable|string|max:255',
-            'level' => 'nullable|string|max:255',
-            'page' => 'nullable|string',
-        ]);
-        $userId = Auth::id();
-        $imagePath = $request->file('user_profile')->store('user_profile', 'public');
-        $imageName = basename($imagePath);
-        CandidateDetail::create(array_merge($data, ['user_profile' => $imageName, 'user_id' => $userId]));
-        return redirect()->route('candidate.index')->with('success', 'Candidate created successfully');
-    }
     public function edit($id)
     {
         $candidate = CandidateDetail::where('user_id', $id)->first();
@@ -82,7 +59,7 @@ class CandidateController extends Controller
 
     public function update(Request $request, $id)
     {
-
+// dd($request->all());
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'designation' => 'required|string|max:255',
@@ -98,21 +75,48 @@ class CandidateController extends Controller
             'professional_skill' => 'required|string',
             'software_skill' => 'required|string',
             'page' => 'nullable',
+            'resume' => 'nullable|mimes:pdf,doc,docx|max:2048',
         ]);
 
         if ($request->hasFile('user_profile')) {
             $user_profile = CandidateDetail::where('user_id', $id)->value('user_profile');
             if (!empty($user_profile)) {
-                Storage::delete('storage/user_profile/' . $user_profile);
+                Storage::delete('public/storage/user_profile/' . $user_profile);
             }
-            $imagePath = $request->file('user_profile')->store('storage/user_profile', 'public');
+            $imagePath = $request->file('user_profile')->store('public/storage/user_profile', 'public');
             $imageName = basename($imagePath);
 
             $data['user_profile'] = $imageName;
         }
-        $candidateData = CandidateDetail::updateOrCreate(['user_id' => $id], $data);
+        if ($request->hasFile('resume')) {
+            $existingResume = CandidateDetail::where('user_id', $id)->value('resume');
+            if (!empty($existingResume)) {
+                Storage::delete('public/storage/resumes/' . $existingResume);
+            }
+
+            $resumePath = $request->file('resume')->store('resumes', 'public');
+
+            $resumeName = basename($resumePath);
+
+            $data['resume'] = $resumeName;
+
+        }
+        CandidateDetail::updateOrCreate(['user_id' => $id], $data);
 
         return redirect()->route('home')->with('success', 'Candidate updated successfully');
+    }
+
+    public function downloadResume($id)
+    {
+        $candidate = CandidateDetail::findOrFail($id);
+
+        if (!empty($candidate->resume)) {
+            $path = public_path('storage/resumes/' . $candidate->resume);
+            return response()->download($path, 'resume_' . $candidate->id . '.' . pathinfo($path, PATHINFO_EXTENSION));
+        }
+        return response()->json([
+            'error' => 'File not found',
+        ]);
     }
 
     public function destroy($id)

@@ -43,6 +43,9 @@ Route::get('/candidate/details', [CandidateController::class, 'candidateShow'])-
 Route::get('candidate/edit/{id}', [CandidateController::class, 'edit'])->name('candidate.edit');
 
 Route::put('/candidate/update/{id}', [CandidateController::class, 'update'])->name('candidate.update');
+
+Route::get('/candidate/downloadResume/{id}', [CandidateController::class, 'downloadResume'])->name('candidate.downloadResume');
+
 Route::get('/candidate/destroy/{id}', [CandidateController::class, 'destroy'])->name('candidate.destroy');
 
 Route::get('/admin/details', [AdminController::class, 'showDetails'])->name('admin.details');

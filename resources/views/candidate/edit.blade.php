@@ -28,7 +28,7 @@
                             <div class="mb-3 form-floating">
                                 <input type="text" class="form-control designation" id="designation" name="designation"
                                     value="{{ $candidate->designation ?? '' }}" placeholder="Enter designation" required>
-                                    <label for="designation">Designation</label>
+                                <label for="designation">Designation</label>
                                 <span class="designationError"></span>
 
                             </div>
@@ -91,10 +91,17 @@
                                 <label for="gender">Gender</label>
                                 <span class="genderError"></span>
                             </div>
-                           <label for="user_profile">User Profile</label>
-                            <div class="mb-3 form-floating">
-                                <input type="file" class="form-control user_profile" id="user_profile"name="user_profile">
+                            {{-- <label for="user_profile">User Profile</label> --}}
+                            <div class="mb-3 input-group">
+                                <label class="input-group "for="user_profile">Profile Picture</label>
+                                <input type="file" class="form-control" id="user_profile" name="user_profile">
                                 <span class="user_profileError"></span>
+                            </div>
+
+                            <div class="mb-3 input-group">
+                                <label class="input-group "for="resume">Upload Resumes</label>
+                                <input type="file" class="form-control" id="resume" name="resume">
+                                <span class="resumeError"></span>
                             </div>
 
                             <div class="mb-3 form-floating">
@@ -103,9 +110,10 @@
                                 <label for="experience">Experience</label>
                                 <span class="experienceError"></span>
                             </div>
-                             <div class="mb-3 form-floating">
-                                <input type="text" class="form-control description" id="description" name="description"
-                                    value="{{ $candidate->description ?? '' }}" placeholder="Enter description" required>
+                            <div class="mb-3 form-floating">
+                                <input type="text" class="form-control description" id="description"
+                                    name="description" value="{{ $candidate->description ?? '' }}"
+                                    placeholder="Enter description" required>
                                 <label for="description">description</label>
                                 <span class="descriptionError"></span>
                             </div>

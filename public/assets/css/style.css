@@ -195,7 +195,7 @@ table p {
 
 /*-------- Container Style Css --------*/
 .wrapper {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 .container {

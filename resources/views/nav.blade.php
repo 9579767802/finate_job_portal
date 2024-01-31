@@ -6,7 +6,7 @@
                     <div class="header-align-start">
                         <div class="header-logo-area">
                             <a href="#">
-                                <img class="logo-main" src="{{ asset('assets/img/logo-light.png') }}" alt="Logo123" />
+                                <img class="logo-main" src="{{ asset('assets/img/logo-light.png') }}" alt="Logo" />
                             </a>
                         </div>
                     </div>

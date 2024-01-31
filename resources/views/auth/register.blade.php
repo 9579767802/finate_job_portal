@@ -133,21 +133,19 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <input class="form-control" type="text"placeholder="First Name"
+                                                        <input class="form-control" type="text"placeholder="Company Name"
                                                             name="first_name" value="{{ old('first_name') }}">
                                                         @error('first_name')
                                                             <div class="alert alert-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
                                                     <div class="col-12">
-                                                        <div class="form-group">
+                                                        {{-- <div class="form-group">
                                                             <input class="form-control"
                                                                 type="text"placeholder="Last Name" name="last_name"
                                                                 value="{{ old('last_name') }}">
-                                                            @error('last_name')
-                                                                <div class ='aleart aleart-danger'>{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
+
+                                                        </div> --}}
 
                                                         <div class="col-12">
                                                             <div class="form-group">

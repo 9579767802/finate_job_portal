@@ -49,7 +49,6 @@
 <body>
     <div id="app">
         @include('nav')
-
         <main>
             <div style="position: relative"><x-notify::notify /></div>
 
@@ -108,12 +107,10 @@
             </aside>
             <!--== End Aside Menu ==-->
     </div>
-
-    <!--=======================Javascript============================-->
     </main>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="{{ asset('js/candidate_actions.js') }}"></script>
+    {{-- <script src="{{ asset('js/candidate_actions.js') }}"></script> --}}
     <!--=== jQuery Modernizr Min Js ===-->
     <script src="{{ asset('assets/js/modernizr.js') }}"></script>
     <!--=== jQuery Min Js ===-->
@@ -132,7 +129,6 @@
     <script src="{{ asset('assets/js/counterup.js') }}"></script>
     <!--=== jQuery Waypoint Js ===-->
     <script src="{{ asset('assets/js/waypoint.js') }}"></script>
-
     <!--=== jQuery Custom Js ===-->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     @notifyJs

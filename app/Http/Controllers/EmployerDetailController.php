@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\EmployerDetail;
-use Illuminate\Support\Facades\Auth;
 use App\DataTables\EmployersDataTable;
+use App\Models\EmployerDetail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class EmployerDetailController extends Controller
 {
@@ -85,38 +82,38 @@ class EmployerDetailController extends Controller
 
     public function profile($id)
     {
-// dd($id);
+        // dd('jhj');
         $employers = EmployerDetail::where('user_id', $id)->first();
-// dd($employers);
         return view('employers.edit', compact('employers'));
     }
 
     public function update(Request $request, $id)
     {
 // dd($request->all());
-$data = $request->validate([
-    'name' => 'required|string|max:255',
-    'categories' => 'required|string|max:255',
-    'location' => 'required|string|max:255',
-    'contact_number' => 'required|string|max:20',
-    'since' => 'required|string|max:4',
-    'team_members' => 'required|integer',
-    'email' => 'required|email|max:255',
-    'website' => 'required|string|max:255',
-    'page' => 'required|string',
-]);
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'categories' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'contact_number' => 'required|string|max:20',
+            'since' => 'required|string|max:4',
+            'team_members' => 'required|integer',
+            'email' => 'required|email|max:255',
+            'website' => 'required|string|max:255',
+            'page' => 'nullable',
 
 
-
+        ]);
 // dd($data);
+
+
 
         if ($request->hasFile('logo')) {
             $existingLogo = employerDetail::where('user_id', $id)->value('logo');
             if (!empty($existingLogo)) {
-                Storage::delete('public/company_logos/' . $existingLogo);
+                Storage::delete('public/storage/company_logos/' . $existingLogo);
             }
 
-            $imagePath = $request->file('logo')->store('company_logos', 'public');
+            $imagePath = $request->file('logo')->store('public/company_logos');
             $imageName = basename($imagePath);
             $data['logo'] = $imageName;
         }

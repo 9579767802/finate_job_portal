@@ -20,15 +20,14 @@ class EmployerListingDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
-                // return '<a href="' . route('employers.edit', $row->id) . '" class="btn btn-sm btn-primary edit-btn" data-id="' . $row->id . '">Edit</a>
-                return  '<a href="' . route('employers.destroy', $row->id) . '" class="btn btn-sm btn-danger delete-btn" data-id="' . $row->id . '">Delete</a>';
+                return '<a href="' . route('employers.destroy', $row->id) . '" class="btn btn-sm btn-danger delete-btn" data-id="' . $row->id . '">Delete</a>';
             })
             ->editColumn('status', function ($row) {
                 return '<div class="form-check form-switch form-switch-sm">
                             <input class="form-check-input employer-status" type="checkbox" ' . ($row->status == 1 ? 'checked' : '') . ' data-id="' . $row->id . '" data-status="' . $row->status . '">
                         </div>';
             })
-           
+
             ->rawColumns(['action', 'status'])
             ->setRowId('id');
     }
@@ -44,7 +43,7 @@ class EmployerListingDataTable extends DataTable
             ->minifiedAjax()
             ->orderBy(1)
             ->responsive(true)
-             ->orderBy(2, 'desc')
+            ->orderBy(2, 'desc')
             ->buttons([
             ]);
     }

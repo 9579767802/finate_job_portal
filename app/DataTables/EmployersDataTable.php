@@ -52,7 +52,7 @@ class EmployersDataTable extends DataTable
             ->orderBy(4)
             ->selectStyleSingle()
             ->buttons([
-                
+
             ]);
     }
 

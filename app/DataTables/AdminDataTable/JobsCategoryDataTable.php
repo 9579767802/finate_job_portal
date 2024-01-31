@@ -46,9 +46,7 @@ class JobsCategoryDataTable extends DataTable
             ->setTableId('jobscategory-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-        //->dom('Bfrtip')
             ->orderBy(1)
-        // ->selectStyleSingle()
             ->buttons([
 
             ]);

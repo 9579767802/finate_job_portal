@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
 
-        <section class="team-details-area">
+<section class="team-details-area">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -15,7 +15,6 @@
                                 </div>
                                 <div class="content">
                                     <h4 class="title">{{ $jobAppliedCandidate->name }}</h4>
-
                                     <h5 class="sub-title">{{ $jobAppliedCandidate->designation }}</h5>
                                     <ul class="info-list">
                                         <li><i class="icofont-location-pin">{{ $jobAppliedCandidate->location }}</i></li>
@@ -23,12 +22,10 @@
                                     </ul>
                                 </div>
                             </div>
-
                             <div class="team-details-btn" data-candidate-id="{{ $jobAppliedCandidate->id }}">
                                 <button type="button" class="btn-theme btn-light" id="shortlistBtn">Short List</button>
                                 <button type="button" class="btn-theme" id="downloadResumeBtn">Download Resume</button>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -46,14 +43,12 @@
                             </div>
                         </div>
                         <div class="candidate-details-wrap">
-
                         </div>
                         <div class="content-list-wrap">
                             <div class="content mb--0">
 
                             </div>
                             <div class="content mb--0">
-
                                 </ul>
                             </div>
                         </div>
@@ -68,8 +63,6 @@
                             <div class="summery-info">
                                 <table class="table">
                                     <tbody>
-
-
                                         <tr>
                                             <td class="table-name">Experience</td>
                                             <td class="dotted">:</td>
@@ -100,7 +93,6 @@
                                             <td class="dotted">:</td>
                                             <td>{{ $jobAppliedCandidate->level }}</td>
                                         </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -155,8 +147,6 @@
                                         </div>
                                     </div>
                                 </form>
-
-                                <!--== Message Notification ==-->
                                 <div class="form-message"></div>
                             </div>
                         </div>

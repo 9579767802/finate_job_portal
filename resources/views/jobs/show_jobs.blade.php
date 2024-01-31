@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <section class="recent-job-area recent-job-inner-area">
@@ -8,20 +7,19 @@
                     <div class="row">
                         @foreach ($jobs as $job)
                             <div class="col-md-6 col-lg-4">
-
                                 <div class="recent-job-item recent-job-style2-item">
                                     <div class="company-info">
                                         <div class="logo">
 
                                             @if ($job->logo)
-                                                <a href="candidate-details.html">
+                                                <a href="#">
                                                     <img src="{{ asset('storage/company_logos/' . $job->logo) }}"
                                                         width="160" height="160" alt="{{ $job->logo }}">
                                                 </a>
                                             @endif
                                         </div>
 
-                                        <div class="content">
+                                         <div class="content">
                                             <h4 class="name"><a href="javascript:;">{{ $job->name }}</a></h4>
                                             <p class="">{{ $job->address }}</p>
                                         </div>

@@ -6,13 +6,12 @@
                     <div class="header-align-start">
                         <div class="header-logo-area">
                             <a href="#">
-                                <img class="logo-main" src="assets/img/logo-light.png" alt="Logo" />
+                                <img class="logo-main" src="{{ asset('assets/img/logo-light.png') }}" alt="Logo123" />
                             </a>
                         </div>
                     </div>
                     <div class="header-align-center">
                         <div class="header-navigation-area position-relative">
-
                             <ul class="main-menu nav ms-auto">
                                 @if (Auth::user() && Auth::user()->role == 'employers')
                                     <li><a href="{{ route('home') }}"><span>Home</span></a></li>
@@ -33,10 +32,11 @@
                                         <a href="#/"><span>{{ auth()->user()->first_name }}</span></a>
                                         <ul class="submenu-nav">
                                             <li>
-                                                <a
-                                                    href="{{ route('candidate.edit', auth()->user()->id) }}"><span>Profile</span></a>
-                                            </li>
+                                                <a href="{{ route('employers.edit', ['id' => auth()->user()->id]) }}">
+                                                    <span>Profile</span>
+                                                </a>
 
+                                            </li>
                                             <li><a href="{{ route('logout') }}"
                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                     {{ __('Logout') }}</a>
@@ -96,7 +96,6 @@
                                                 <a
                                                     href="{{ route('admin.profile', auth()->user()->id) }}"><span>Profile</span></a>
                                             </li>
-
                                             <li><a href="{{ route('logout') }}"
                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                     {{ __('Logout') }}</a>
@@ -115,7 +114,6 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="header-align-end">
                         @guest
                             <div class="header-action-area">
@@ -128,7 +126,6 @@
                             </div>
                         @endguest
                     </div>
-
                 </div>
             </div>
         </div>

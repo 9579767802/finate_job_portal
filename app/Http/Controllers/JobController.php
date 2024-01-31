@@ -16,10 +16,12 @@ class JobController extends Controller
     }
     public function showjobs()
     {
+
         $jobs = Job::leftJoin('employer_details', 'jobs.employer_id', '=', 'employer_details.id')
             ->select('jobs.id', 'jobs.address', 'jobs.title', 'jobs.category', 'jobs.skills', 'jobs.salary', 'jobs.job_type', 'employer_details.name', 'employer_details.logo', 'jobs.status')
             ->where('jobs.status', 1)
             ->get();
+// dd($jobs);
         return view('jobs.show_jobs', compact('jobs'));
 
     }

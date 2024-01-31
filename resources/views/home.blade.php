@@ -43,9 +43,6 @@
                                                 <p class="desc">Find a great job to build your bright career. Many jobs
                                                     are available on this platform.</p>
                                             </div>
-                                            {{-- Other content --}}
-
-
                                         </div>
                                         <div class="col-12">
                                             <div class="job-search-wrap">
@@ -327,8 +324,10 @@
                     </div>
                 </div>
             </section>
+
             <section class="team-area">
                 <div class="container" data-aos="fade-down">
+                    <div class="row">
                     <div class="row">
                         <div class="col-12">
                             <div class="section-title text-center">
@@ -382,4 +381,4 @@
 
         </main>
     </div>
-@endsection('content'),
+@endsection('content')

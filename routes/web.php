@@ -27,8 +27,9 @@ Route::get('/employers', [EmployerDetailController::class, 'index'])->name('empl
 Route::get('/employers/create', [EmployerDetailController::class, 'create'])->name('employers.create');
 Route::post('/employers/store', [EmployerDetailController::class, 'store'])->name('employers.store');
 Route::get('/employers/{id}', [EmployerDetailController::class, 'show'])->name('employers.show');
-Route::get('/profile/{id}', [EmployerDetailController::class, 'Profile'])->name('profile');
-Route::put('/profile/update', [EmployerDetailController::class, 'update'])->name('employers.update');
+Route::get('/profile/employers/{id}', [EmployerDetailController::class, 'profile'])->name('employers.edit');
+
+Route::put('/profile/update/{id}', [EmployerDetailController::class, 'update'])->name('employers.update');
 
 Route::put('/employers/update/{id}', [EmployerDetailController::class, 'update'])->name('employers.update');
 Route::delete('/employers/delete/{id}', [EmployerDetailController::class, 'destroy'])->name('employers.destroy');
@@ -51,8 +52,6 @@ Route::get('/admin/candidatelist', [AdminController::class, 'showCandidateList']
 Route::get('/profile/{id}', [AdminController::class, 'adminProfile'])->name('admin.profile');
 Route::put('/employers/update/{id}', [AdminController::class, 'update'])->name('admin.update');
 
-
-
 Route::get('/job-categories', [JobCategoryController::class, 'index'])->name('job-categories.index');
 Route::get('/job-categories/create', [JobCategoryController::class, 'create'])->name('job-categories.create');
 Route::post('/job-categories', [JobCategoryController::class, 'store'])->name('job-categories.store');
@@ -63,8 +62,6 @@ Route::delete('/job-categories/{JobCategory}', [JobCategoryController::class, 'd
 Route::post('/toggle-status/{job}', [JobController::class, 'toggleStatus']);
 
 Route::post('/update-status/{id}', [AdminController::class, 'updateStatus']);
-
-// routes/web.php
 
 Route::get('/candidate/details/{id}', [CandidateController::class, 'showCandidateDetails'])->name('candidate.shortlist');
 Route::post('/update-shortlist/{id}', [CandidateController::class, 'updateShortlist'])->name('update.shortlist');

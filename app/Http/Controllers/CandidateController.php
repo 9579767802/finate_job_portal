@@ -83,7 +83,7 @@ class CandidateController extends Controller
             if (!empty($user_profile)) {
                 Storage::delete('public/storage/user_profile/' . $user_profile);
             }
-            $imagePath = $request->file('user_profile')->store('public/storage/user_profile', 'public');
+            $imagePath = $request->file('user_profile')->store('storage/user_profile', 'public');
             $imageName = basename($imagePath);
 
             $data['user_profile'] = $imageName;
@@ -94,7 +94,7 @@ class CandidateController extends Controller
                 Storage::delete('public/storage/resumes/' . $existingResume);
             }
 
-            $resumePath = $request->file('resume')->store('resumes', 'public');
+            $resumePath = $request->file('resume')->store('storage/resumes', 'public');
 
             $resumeName = basename($resumePath);
 

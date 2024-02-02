@@ -11,6 +11,8 @@
                                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                                     <div class="team-item">
                                         <div class="thumb">
+{{-- @dd($candidate->user_profile); --}}
+
                                             <a href="{{ route('candidate.details', $candidate->id) }}">
                                                 <img src="{{ asset('storage/user_profile/' . $candidate->user_profile) }}"
                                                     width="160" height="160" alt="User Profile Image">

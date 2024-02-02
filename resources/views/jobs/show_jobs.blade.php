@@ -19,7 +19,7 @@
                                             @endif
                                         </div>
 
-                                         <div class="content">
+                                        <div class="content">
                                             <h4 class="name"><a href="javascript:;">{{ $job->name }}</a></h4>
                                             <p class="">{{ $job->address }}</p>
                                         </div>
@@ -35,11 +35,9 @@
                                             <h4>{{ $job->salary }}</h4>
                                             <p>/monthly</p>
                                         </div>
+                                        <a href="{{ route('apply', ['jobId' => $job->id]) }}" class="btn-theme btn-sm">Apply Now</a>
 
-                                        <form method="POST" action="{{ route('apply', ['jobId' => $job->id]) }}">
-                                            @csrf
-                                            <button type="submit" class="btn-theme btn-sm">Apply Now</button>
-                                        </form>
+
                                     </div>
                                 </div>
                             </div>

@@ -116,9 +116,26 @@
                         <span class="descriptionError"></span>
                     </div>
 
+                        <div class="mb-3 form-floating">
+                                <textarea id="editor" class="form-control page"name="page"></textarea>
+                                <label for="editor"></label>
+                                <span class="pageError"></span>
+                            </div>
+
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>
             </div>
         </div>
+        {{-- <div id="editor"></div> --}}
     </div>
 @endsection
+@push('scripts')
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+@endpush

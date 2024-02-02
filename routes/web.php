@@ -19,7 +19,8 @@ Route::put('/jobs/update/{id}', [JobController::class, 'update'])->name('jobs.up
 Route::get('/jobs/delete/{id}', [JobController::class, 'destroy'])->name('jobs.destroy');
 Route::get('/jobs/show', [JobController::class, 'showjobs'])->name('jobs.show');
 Route::get('/jobs/show/{id}', [JobController::class, 'showJobDetails'])->name('jobs.showJobDetails');
-Route::post('/apply/{jobId}', [JobController::class, 'apply'])->name('apply');
+Route::get('/apply/{jobId}', [JobController::class, 'apply'])->name('apply');
+Route::post('/apply/{jobId}', [JobController::class, 'applyJob'])->name('apply.job');
 Route::get('/jobs/search', [JobController::class, 'searchJobs'])->name('jobs.search');
 Route::get('/jobs/details', [JobController::class, 'jobsDetails'])->name('jobs.details');
 

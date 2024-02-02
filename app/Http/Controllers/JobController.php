@@ -7,6 +7,7 @@ use App\Models\EmployerDetail;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class JobController extends Controller
 {
@@ -64,6 +65,7 @@ class JobController extends Controller
             'level' => 'required',
             'description' => 'required',
             'skills' => 'required',
+            'page' => 'nullable',
         ]);
         $data['user_id'] = Auth::id();
         $data['employer_id'] = EmployerDetail::where('user_id', Auth::id())->value('id');
@@ -71,42 +73,6 @@ class JobController extends Controller
 // dd($data);
         return redirect()->route('jobs.index');
     }
-
-    // public function store(Request $request)
-    // {
-
-    //     $data = $request->validate([
-    //         'title' => 'required',
-    //         'job_type' => 'required',
-    //         'category' => 'required',
-    //         'posted_date' => 'required|date',
-    //         'application_end_date' => 'required|date|after:posted_date',
-    //         'salary' => 'required|numeric',
-    //         'experience' => 'required|integer',
-    //         'gender' => 'required|in:Male,Female,Other',
-    //         'qualification' => 'required',
-    //         'level' => 'required',
-    //         'description' => 'required',
-    //         'address' => 'required',
-    //         'skills' => 'required|array',
-    //     ]);
-
-    //     $data['employer_id'] = EmployerDetail::where('user_id', Auth::id())->value('id');
-    //     Job::create($data);
-
-    //     return redirect()->route('jobs.index');
-    // }
-
-    //     $employerId = EmployerDetail::where('user_id', Auth::id())->value('id');
-
-    //     dd($employerId);
-    //     $requestData = $request->all();
-    //     $requestData['employer_id'] = $employerId;
-
-    //     Job::create($requestData);
-
-    //     return redirect()->route('jobs.index');
-    // }
 
     public function edit($id, JobsDataTable $dataTable)
     {
@@ -133,13 +99,22 @@ class JobController extends Controller
     }
     public function apply($jobId)
     {
+        $job = Job::find($jobId);
+
+        return view('jobs.jobdetails', compact('job'));
+    }
+    public function applyJob($jobId)
+    {
         $candidate = auth()->user()->role == 'candidate';
 
         $job = Job::find($jobId);
 
         $job->candidates()->attach($candidate);
 
-        return redirect()->route('jobs.showJobDetails', $jobId)->with('success', 'Applied successfully!');
+        notify()->success('Applied Job successfully');
+
+        return redirect()->route('jobs.show', $jobId);
+
     }
 
     public function showJobsApply($jobId)
@@ -153,7 +128,7 @@ class JobController extends Controller
         $job = Job::find($id);
         if ($job) {
             $newStatus = $request->input('status');
-            $job->update(['status' => $newStatus]);
+            DB::update("UPDATE jobs SET status = ? WHERE id = ?", [$newStatus, $id]);
 
             return response()->json(['success' => true, 'message' => 'Status updated successfully']);
         } else {

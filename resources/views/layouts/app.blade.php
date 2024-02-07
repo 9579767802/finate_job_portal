@@ -42,7 +42,7 @@
     {{-- <link href="resources/css/app.css" rel="stylesheet" /> --}}
     <!-- Scripts -->
     @notifyCss
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/sass/toastr.scss'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>

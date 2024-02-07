@@ -30,6 +30,9 @@
                                                 <li><a href="{{ route('candidate.applied-candidates') }}"><span>Job
                                                             Applied
                                                             Candidates</span></a>
+                                                <li><a href="{{ route('candidate.shortlist') }}"><span>
+                                                            Shortlisted
+                                                            Candidates</span></a>
                                                 <li><a href="{{ route('candidate.index') }}"><span>Candidates</span></a>
                                                 </li>
                                             </ul>
@@ -42,13 +45,12 @@
                                                         href="{{ route('employers.edit', ['id' => auth()->user()->id]) }}">
                                                         <span>Profile</span>
                                                     </a>
-
                                                 </li>
                                                 <li><a href="{{ route('logout') }}"
                                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                         {{ __('Logout') }}</a>
-                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                        class="d-none">
+                                                    <form id="logout-form" action="{{ route('logout') }}"
+                                                        method="POST" class="d-none">
                                                         @csrf
                                                     </form>
                                                 </li>

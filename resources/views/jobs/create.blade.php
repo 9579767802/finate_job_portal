@@ -75,7 +75,7 @@
                             <option value=" selected disabled">Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
-                            <option value="other">Other</option>
+                            <option value="other">Both male & Female</option>
                         </select>
                         <label for="gender">Gender</label>
                         <span class="genderError"></span>

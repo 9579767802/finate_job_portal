@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\AppliedCandidateDataTable;
+use App\DataTables\ShortlistedCandidatesDataTable;
 use App\Models\CandidateDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,18 +14,13 @@ class CandidateController extends Controller
     public function index()
     {
         $perPage = 5;
-
         $candidates = CandidateDetail::paginate($perPage);
-
         return view('candidate.index', compact('candidates'));
     }
 
     public function candidateDetails(AppliedCandidateDataTable $datatable)
     {
         $employerId = Auth::id();
-        // $jobAppliedCandidates = CandidateDetail::whereHas('jobs', function ($query) use ($employerId) {
-        //     $query->where('employer_id', $employerId);
-        // })->get();
         $jobAppliedCandidates = CandidateDetail::with(['jobs' => function ($q) use ($employerId) {
             $q->where('employer_id', $employerId);
         }])->get();
@@ -34,14 +30,12 @@ class CandidateController extends Controller
 
     public function show($id)
     {
-
         $candidates = CandidateDetail::find($id);
         return view('candidate.show', compact('candidates'));
     }
 
     public function candidateShow()
     {
-
         return view('candidate.candidate_details');
     }
 
@@ -59,7 +53,7 @@ class CandidateController extends Controller
 
     public function update(Request $request, $id)
     {
-// dd($request->all());
+
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'designation' => 'required|string|max:255',
@@ -128,16 +122,39 @@ class CandidateController extends Controller
 
     public function showCandidateDetails($id)
     {
-        $jobAppliedCandidate = CandidateDetail::findOrFail($id);
-        return view('candidate.candidate_details', compact('jobAppliedCandidate'));
+        if (Auth::user()) {
+            $jobAppliedCandidate = CandidateDetail::findOrFail($id);
+            return view('candidate.candidate_details', compact('jobAppliedCandidate'));
+        } else {
+            notify()->success('Please login first');
+
+            return redirect()->back();
+        }
     }
 
     public function updateShortlist($id)
     {
         $candidate = CandidateDetail::findOrFail($id);
-        $candidate->update(['shortlisted' => !$candidate->shortlisted]);
 
-        return response()->json(['message' => 'Candidate shortlisted successfully']);
+        if ($candidate) {
+            $candidate->update([
+                'shortlisted' => !$candidate->shortlisted
+            ]);
+
+            return response()->json(['success' => 'Candidate updated successfully']);
+        } else {
+            return response()->json(['error' => 'Candidate not found']);
+        }
     }
 
+    public function candidateShortlisted(ShortlistedCandidatesDataTable $dataTable )
+    {
+        if (Auth::user()) {
+            return $dataTable->render('candidate.shortlist-candidates');
+        } else {
+            notify()->success('Please login first');
+
+            return redirect()->back();
+        }
+    }
 }

@@ -70,7 +70,7 @@
 
                             <div class="mb-3 form-floating">
                                 <input type="email" class="form-control email" name="email" id="email"
-                                    placeholder="Email" value="{{ $employer->email ?? '' }}" required>
+                                    placeholder="Email" value="{{ auth()->user()->email ?? '' }}" required>
                                 <label for="email">Email</label>
                                 <span class="emailError"></span>
                             </div>

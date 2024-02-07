@@ -40,19 +40,13 @@ Route::get('/candidate/create', [CandidateController::class, 'create'])->name('c
 Route::post('/candidate', [CandidateController::class, 'store'])->name('candidate.store');
 Route::get('/candidate/show/{id}', [CandidateController::class, 'show'])->name('candidate.show');
 Route::get('/candidate/details', [CandidateController::class, 'candidateShow'])->name('candidate.details');
-
 Route::get('candidate/edit/{id}', [CandidateController::class, 'edit'])->name('candidate.edit');
-
 Route::put('/candidate/update/{id}', [CandidateController::class, 'update'])->name('candidate.update');
-
 Route::get('/candidate/downloadResume/{id}', [CandidateController::class, 'downloadResume'])->name('candidate.downloadResume');
-
 Route::get('/candidate/destroy/{id}', [CandidateController::class, 'destroy'])->name('candidate.destroy');
 
 Route::get('/admin/details', [AdminController::class, 'showDetails'])->name('admin.details');
-
 Route::get('/admin/candidatelist', [AdminController::class, 'showCandidateList'])->name('admin.candidatelist');
-
 Route::get('/profile/{id}', [AdminController::class, 'adminProfile'])->name('admin.profile');
 Route::put('/employers/update/{id}', [AdminController::class, 'update'])->name('admin.update');
 
@@ -67,8 +61,9 @@ Route::post('/toggle-status/{job}', [JobController::class, 'toggleStatus']);
 
 Route::post('/update-status/{id}', [AdminController::class, 'updateStatus']);
 
-Route::get('/candidate/details/{id}', [CandidateController::class, 'showCandidateDetails'])->name('candidate.shortlist');
+Route::get('/candidate/details/{id}', [CandidateController::class, 'showCandidateDetails'])->name('candidate.details');
 Route::post('/update-shortlist/{id}', [CandidateController::class, 'updateShortlist'])->name('update.shortlist');
+Route::get('/update-shortlist', [CandidateController::class, 'candidateShortlisted'])->name('candidate.shortlist');
 
 Route::get('/job-details/{category}', [HomeController::class, 'showJobDetails'])->name('job-details.show');
 Route::get('/candidate-details/{id}', [HomeController::class, 'showCandidates'])->name('candidate-details.show');

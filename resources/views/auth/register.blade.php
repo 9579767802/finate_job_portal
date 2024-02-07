@@ -230,7 +230,7 @@
                                                             <div class="col-12">
                                                                 <div class="form-group">
                                                                     <button type="submit" class="btn-theme">Register Now
-                                                                        emp</button>
+                                                                        </button>
                                                                 </div>
                                                             </div>
                                                         </div>

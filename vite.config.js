@@ -11,4 +11,7 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        open: 'http://192.168.0.108'
+    }
 });

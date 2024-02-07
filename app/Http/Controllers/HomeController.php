@@ -38,12 +38,10 @@ class HomeController extends Controller
 
     public function showJobDetails($category)
     {
-        // $jobs = JobCategory::where('category', $category)->first();
-
         $jobs = Job::leftJoin('employer_details', 'jobs.employer_id', '=', 'employer_details.id')
             ->select('jobs.id', 'jobs.address', 'jobs.title', 'jobs.category', 'jobs.skills', 'jobs.salary', 'jobs.job_type', 'employer_details.name', 'employer_details.logo', 'jobs.status')
             ->where('jobs.status', 1)
-            ->where('jobs.category', $category) // Add this line to filter by category
+            ->where('jobs.category', $category)
             ->get();
 
         return view('jobs.show_jobs', compact('jobs'));

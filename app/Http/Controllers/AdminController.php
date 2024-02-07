@@ -17,12 +17,9 @@ class AdminController extends Controller
 
     public function adminProfile($id)
     {
-// dd($id);
         $admin = User::where('id', $id)->first();
-// dd($employers);
         return view('admin.profile-update', compact('admin'));
     }
-
 
 public function update(Request $request, $id)
 {
@@ -36,7 +33,7 @@ public function update(Request $request, $id)
     $user = User::find($id);
     
     if (!$user) {
-        // Handle the case where the user is not found
+
         return redirect()->route('home')->with('error', 'User not found');
     }
 
@@ -47,10 +44,6 @@ public function update(Request $request, $id)
 
     return redirect()->route('home')->with('success', 'Profile updated successfully');
 }
-
-
-
-
 
     public function showCandidateList(CandidateListingDataTable $datatable)
     {

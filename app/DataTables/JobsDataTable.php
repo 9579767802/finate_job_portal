@@ -32,7 +32,6 @@ class JobsDataTable extends DataTable
                 return '<div class="form-check form-switch form-switch-sm">
                             <input class="form-check-input job-status-toggle" type="checkbox" ' . ($row->status == 1 ? 'checked' : '') . ' data-id="' . $row->id . '" data-status="' . $row->status . '">
                         </div>';
-
             })
             ->rawColumns(['action', 'status'])
 
@@ -45,12 +44,6 @@ class JobsDataTable extends DataTable
         return $model->newQuery()->where('employer_id', $employerId);
     }
 
-    // public function query(Job $model): QueryBuilder
-    // {
-    //     $employerId = Auth::user()->employerDetail->id;
-
-    //     return $model->newQuery()->where('employer_id', $employerId);
-    // }
     public function html(): HtmlBuilder
     {
         return $this->builder()

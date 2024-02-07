@@ -30,25 +30,16 @@ class EmployersDataTable extends DataTable
             ->rawColumns(['image'])
             ->setRowId('id');
     }
-
-    /**
-     * Get the query source of dataTable.
-     */
     public function query(EmployerDetail $model): QueryBuilder
     {
         return $model->newQuery();
     }
-
-    /**
-     * Optional method if you want to use the html builder.
-     */
     public function html(): HtmlBuilder
     {
         return $this->builder()
             ->setTableId('employers-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-        //->dom('Bfrtip')
             ->orderBy(4)
             ->selectStyleSingle()
             ->buttons([
@@ -56,9 +47,6 @@ class EmployersDataTable extends DataTable
             ]);
     }
 
-    /**
-     * Get the dataTable columns definition.
-     */
     public function getColumns(): array
     {
         return [
@@ -71,18 +59,10 @@ class EmployersDataTable extends DataTable
             Column::make('email'),
             Column::make('team_members'),
             Column::make('website'),
-            // Column::computed('action')
-            //     ->exportable(false)
-            //     ->printable(false)
-            //     ->width(60)
-            //     ->addClass('text-center'),
 
         ];
     }
 
-    /**
-     * Get the filename for export.
-     */
     protected function filename(): string
     {
         return 'Employers_' . date('YmdHis');

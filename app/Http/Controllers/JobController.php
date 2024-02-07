@@ -17,14 +17,18 @@ class JobController extends Controller
     }
     public function showjobs()
     {
+        if (Auth::user()) {
+            $jobs = Job::leftJoin('employer_details', 'jobs.employer_id', '=', 'employer_details.id')
+                ->select('jobs.id', 'jobs.address', 'jobs.title', 'jobs.category', 'jobs.skills', 'jobs.salary', 'jobs.job_type', 'employer_details.name', 'employer_details.logo', 'jobs.status')
+                ->where('jobs.status', 1)
+                ->get();
 
-        $jobs = Job::leftJoin('employer_details', 'jobs.employer_id', '=', 'employer_details.id')
-            ->select('jobs.id', 'jobs.address', 'jobs.title', 'jobs.category', 'jobs.skills', 'jobs.salary', 'jobs.job_type', 'employer_details.name', 'employer_details.logo', 'jobs.status')
-            ->where('jobs.status', 1)
-            ->get();
-// dd($jobs);
-        return view('jobs.show_jobs', compact('jobs'));
+            return view('jobs.show_jobs', compact('jobs'));
+        } else {
+            notify()->success('Please login first');
 
+            return redirect()->back();
+        }
     }
 
     public function showJobDetails($jobId)
@@ -105,8 +109,7 @@ class JobController extends Controller
     }
     public function applyJob($jobId)
     {
-        $candidate = auth()->user()->role == 'candidate';
-
+        $candidate = auth()->user();
         $job = Job::find($jobId);
 
         $job->candidates()->attach($candidate);
@@ -138,19 +141,27 @@ class JobController extends Controller
 
     public function searchJobs(Request $request)
     {
-        $keyword = $request->input('title');
-        $city = $request->input('city');
-// dd($city);
 
-        $category = $request->input('category');
+        if (Auth::user()) {
+            $keyword = $request->input('title');
+            $city = $request->input('city');
 
-        $jobs = Job::with('employerDetails')
-            ->where('title', 'like', '%' . $keyword . '%')
-            ->leftJoin('employer_details', 'jobs.employer_id', '=', 'employer_details.id')
-            ->select('jobs.id', 'jobs.address', 'jobs.title', 'jobs.category', 'jobs.skills', 'jobs.salary', 'jobs.job_type', 'employer_details.name', 'employer_details.logo')
-            ->get();
+            $category = $request->input('category');
 
-        return view('jobs.show_jobs', compact('jobs'));
+            $jobs = Job::with('employerDetails')
+                ->where('title', 'like', '%' . $keyword . '%')
+                ->leftJoin('employer_details', 'jobs.employer_id', '=', 'employer_details.id')
+                ->select('jobs.id', 'jobs.address', 'jobs.title', 'jobs.category', 'jobs.skills', 'jobs.salary', 'jobs.job_type', 'employer_details.name', 'employer_details.logo')
+                ->get();
+
+            return view('jobs.show_jobs', compact('jobs'));
+
+        } else {
+            notify()->success('Please login first');
+
+            return redirect()->back();
+        }
+
     }
 
 }

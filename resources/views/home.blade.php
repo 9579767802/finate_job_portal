@@ -84,7 +84,7 @@
                                                             <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
                                                                 <div class="form-group">
                                                                     <button type="submit" class="btn-form-search"><i
-                                                                            class="icofont-search-1"></i></button>
+                                                                            class="bi bi-arrow-right fs-3"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -352,7 +352,7 @@
                                     </div>
                                     <p class="desc">CSS3, HTML5, Javascript Bootstrap, Jquery</p>
                                     <a class="btn-theme btn-white btn-sm"
-                                        href="{{ route('candidate.shortlist', $candidate->id) }}">View Profile</a>
+                                        href="{{ route('candidate.details', $candidate->id) }}">View Profile</a>
                                 </div>
                                 <div class="bookmark-icon"><img src="assets/img/icons/bookmark1.png" alt="Image-HasTech">
                                 </div>

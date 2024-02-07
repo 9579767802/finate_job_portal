@@ -8,17 +8,14 @@ const candidateListAction = () => {
                 type: 'POST',
                 url: '/update-shortlist/' + candidateId,
                 success: function (response) {
+                    alert('Candidate shortlisted successfully');
                     console.log('Candidate shortlisted successfully');
-                    toastr.success('Candidate shortlisted successfully');
                 },
                 error: function (error) {
                     console.error('Error shortlisting candidate');
-                    toastr.error('Error shortlisting candidate');
                 }
             });
         });
-
-
     });
 }
 export default candidateListAction;

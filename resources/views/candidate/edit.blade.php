@@ -91,7 +91,6 @@
                                 <label for="gender">Gender</label>
                                 <span class="genderError"></span>
                             </div>
-                            {{-- <label for="user_profile">User Profile</label> --}}
                             <div class="mb-3 input-group">
                                 <label class="input-group "for="user_profile">Profile Picture</label>
                                 <input type="file" class="form-control" id="user_profile" name="user_profile">
@@ -175,7 +174,7 @@
                                 <textarea id="editor"class="form-control editor" name="page">{{ $candidate->page ?? '' }}</textarea>
                                 <span class="editorError"></span>
                             </div>
-                            <button type="submit" class="btn btn-primary">Update Candidate</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
                 </div>

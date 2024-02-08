@@ -23,4 +23,15 @@ class Candidate extends Model
         'experience',
         'description',
     ];
+
+
+        public function details()
+    {
+        return $this->hasOne(CandidateDetail::class, 'user_id', 'user_id');
+    }
+
+    public function jobs()
+    {
+        return $this->belongsToMany(Job::class, 'job_candidates', 'user_id', 'job_id');
+    }
 }

@@ -62,7 +62,7 @@ Route::post('/toggle-status/{job}', [JobController::class, 'toggleStatus']);
 Route::post('/update-status/{id}', [AdminController::class, 'updateStatus']);
 
 Route::get('/candidate/details/{id}', [CandidateController::class, 'showCandidateDetails'])->name('candidate.details');
-Route::post('/update-shortlist/{id}', [CandidateController::class, 'updateShortlist'])->name('update.shortlist');
+Route::post('/update-shortlist/{candidateDetailsId}', [CandidateController::class, 'updateShortlist'])->name('update.shortlist');
 Route::get('/update-shortlist', [CandidateController::class, 'candidateShortlisted'])->name('candidate.shortlist');
 
 Route::get('/job-details/{category}', [HomeController::class, 'showJobDetails'])->name('job-details.show');

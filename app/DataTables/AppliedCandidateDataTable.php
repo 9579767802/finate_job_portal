@@ -2,8 +2,9 @@
 
 namespace App\DataTables;
 
-use App\Models\Candidate;
+use App\Models\job;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
@@ -25,12 +26,14 @@ class AppliedCandidateDataTable extends DataTable
             })
             ->setRowId('id');
     }
-
-    public function query(Candidate $model): QueryBuilder
+    public function query(job $model): QueryBuilder
     {
-        $data = Candidate::join('jobs', 'jobs.id', '=', 'job_candidates.job_id')
-            ->join('candidate_details', 'candidate_details.user_id', '=', 'job_candidates.user_id');
-        return $data;
+        $employerId = Auth::user()->employerDetail?->id;
+
+        return $model->newQuery()
+            ->join('job_candidates', 'jobs.id', '=', 'job_candidates.job_id')
+            ->join('candidate_details', 'candidate_details.user_id', '=', 'job_candidates.user_id')
+            ->where('jobs.employer_id', $employerId);
     }
 
     public function html(): HtmlBuilder
@@ -51,7 +54,7 @@ class AppliedCandidateDataTable extends DataTable
             Column::make('designation'),
             Column::make('contact_number'),
             Column::make('location'),
-            Column::make('title'),
+            // Column::make('title'),
             Column::make('age'),
             Column::make('experience'),
             Column::make('gender'),

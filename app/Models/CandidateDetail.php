@@ -30,14 +30,16 @@ class CandidateDetail extends Model
         'resume',
     ];
 
+
     public function jobs()
     {
-        return $this->belongsToMany(Job::class, 'job_candidates', 'user_id', 'job_id');
+        return $this->belongsToMany(Job::class, 'job_candidates', 'user_id', 'job_id')
+            ->where('jobs.employer_id', $this->employer_id);
     }
-    // In your CandidateDetail model
-    public function showApplyJobs()
+
+    public function candidates()
     {
-        return $this->belongsToMany(Job::class, 'job_candidates', 'candidate_id', 'job_id');
+        return $this->belongsToMany(CandidateDetail::class, 'job_candidates', 'job_id', 'user_id');
     }
 
 }

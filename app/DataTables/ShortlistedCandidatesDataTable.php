@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\CandidateDetail;
+use App\Models\ShortlistedCandidate;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -22,10 +22,13 @@ class ShortlistedCandidatesDataTable extends DataTable
             ->setRowId('id');
     }
 
-    public function query(CandidateDetail $model): QueryBuilder
+    public function query(ShortlistedCandidate $model): QueryBuilder
     {
-        return $model->newQuery()->where('shortlisted', 1);
-
+        return $model->newQuery()
+            ->select('candidate_details.name', 'candidate_details.designation', 'candidate_details.location', 'candidate_details.contact_number', 'candidate_details.age', 'candidate_details.gender', 'candidate_details.experience', 'candidate_details.id')
+            ->where('shortlisted', 1)
+            ->where('employer_details_id', \Auth::user()->employerDetail?->id)
+            ->leftJoin('candidate_details', 'candidate_details.id', '=', 'shortlisted_candidates.candidate_details_id');
     }
 
     public function html(): HtmlBuilder
@@ -43,6 +46,8 @@ class ShortlistedCandidatesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+
+            // Column::make('id'),
             Column::make('name')->title('Name'),
             Column::make('designation')->title('Designation'),
             Column::make('location')->title('Location'),

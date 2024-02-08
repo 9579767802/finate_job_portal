@@ -1,15 +1,17 @@
 const candidateListAction = () => {
     $(document).ready(function () {
-
         $('#shortlistBtn').on('click', function () {
-            var candidateId = $('.team-details-btn').data('candidate-id');
+            var candidateDetailsId = $('.team-details-btn').data('candidate-id');
 
             $.ajax({
                 type: 'POST',
-                url: '/update-shortlist/' + candidateId,
+                url: '/update-shortlist/' + candidateDetailsId,
                 success: function (response) {
-                    alert('Candidate shortlisted successfully');
-                    console.log('Candidate shortlisted successfully');
+                    if (response.status === 'unshortlisted') {
+                        alert('Candidate unshortlisted successfully');
+                    } else if (response.status ==='shortlisted') {
+                        alert('Candidate shortlisted successfully');
+                    }
                 },
                 error: function (error) {
                     console.error('Error shortlisting candidate');
@@ -18,4 +20,6 @@ const candidateListAction = () => {
         });
     });
 }
+
 export default candidateListAction;
+

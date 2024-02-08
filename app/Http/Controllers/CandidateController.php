@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\AppliedCandidateDataTable;
 use App\DataTables\ShortlistedCandidatesDataTable;
 use App\Models\CandidateDetail;
+use App\Models\EmployerDetail;
+use App\Models\ShortlistedCandidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -17,14 +19,14 @@ class CandidateController extends Controller
         $candidates = CandidateDetail::paginate($perPage);
         return view('candidate.index', compact('candidates'));
     }
-
     public function candidateDetails(AppliedCandidateDataTable $datatable)
     {
         $employerId = Auth::id();
-        $jobAppliedCandidates = CandidateDetail::with(['jobs' => function ($q) use ($employerId) {
-            $q->where('employer_id', $employerId);
+        $jobAppliedCandidates = CandidateDetail::whereHas('jobs', function ($query) use ($employerId) {
+            $query->where('employer_id', $employerId);
+        })->with(['jobs' => function ($query) use ($employerId) {
+            $query->where('employer_id', $employerId);
         }])->get();
-
         return $datatable->render('candidate.applied-candidates', compact('jobAppliedCandidates'));
     }
 
@@ -53,7 +55,6 @@ class CandidateController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'designation' => 'required|string|max:255',
@@ -99,7 +100,6 @@ class CandidateController extends Controller
 
         return redirect()->route('home')->with('success', 'Candidate updated successfully');
     }
-
     public function downloadResume($id)
     {
         $candidate = CandidateDetail::findOrFail($id);
@@ -117,7 +117,6 @@ class CandidateController extends Controller
     {
         $candidates = CandidateDetail::find($id);
         $candidates->delete();
-
     }
 
     public function showCandidateDetails($id)
@@ -132,29 +131,37 @@ class CandidateController extends Controller
         }
     }
 
-    public function updateShortlist($id)
+    public function updateShortlist($candidateDetailsId)
     {
-        $candidate = CandidateDetail::findOrFail($id);
+        try {
+            $employerId = EmployerDetail::where("user_id", Auth::user()->id)->value("id");
 
-        if ($candidate) {
-            $candidate->update([
-                'shortlisted' => !$candidate->shortlisted
-            ]);
+            $shortlistedCandidate = ShortlistedCandidate::firstOrCreate(
+                [
+                    'employer_details_id' => $employerId,
+                    'candidate_details_id' => $candidateDetailsId,
+                ],
+                ['shortlisted' => 1]
+            );
 
-            return response()->json(['success' => 'Candidate updated successfully']);
-        } else {
-            return response()->json(['error' => 'Candidate not found']);
+            $shortlistedCandidate->update(['shortlisted' => ($shortlistedCandidate->shortlisted == 1) ? 0 : 1]);
+
+            if ($shortlistedCandidate->shortlisted == 1) {
+
+                return response()->json(['status' => 'shortlisted']);
+            } else {
+
+                return response()->json(['status' => 'unshortlisted']);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error shortlisting candidate: ' . $e->getMessage());
+            \Log::error($e->getTraceAsString()); // Log the complete exception trace
+            return response()->json(['error' => 'Error shortlisting candidate']);
         }
     }
 
-    public function candidateShortlisted(ShortlistedCandidatesDataTable $dataTable )
+    public function candidateShortlisted(ShortlistedCandidatesDataTable $dataTable)
     {
-        if (Auth::user()) {
-            return $dataTable->render('candidate.shortlist-candidates');
-        } else {
-            notify()->success('Please login first');
-
-            return redirect()->back();
-        }
+        return $dataTable->render('candidate.shortlist-candidates');
     }
 }

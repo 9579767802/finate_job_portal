@@ -14,31 +14,29 @@
                             @method('PUT')
                             <div class="mb-3 form-floating">
                                 <input type="text" class="form-control " name="first_name" id="first_name"
-                                    placeholder="first_name"
-                                    value="{{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}">
+                                    placeholder="first_name" value="{{ auth()->user()->first_name }}">
                                 <label for="first_name">Name</label>
                                 {{-- <span class="nameError"></span> --}}
                             </div>
-
                             <div class="mb-3 form-floating">
-                                <input type="text" class="form-control email" name="email" id="email"
-                                    placeholder="Enter email" required>
+                                <input type="text" class="form-control" name="email" id="email"
+                                    placeholder="Enter email" value="{{ auth()->user()->email }}">
                                 <label for="email">Email</label>
                                 {{-- <span class="email"></span> --}}
                             </div>
 
-                             <div class="mb-3 form-floating">
+                            <div class="mb-3 form-floating">
                                 <input type="password" class="form-control " name="password" id="password"
                                     placeholder="Enter password" required>
                                 <label for="password">Password</label>
-                                {{-- <span class="password"></span> --}}
+                                <span class="password"></span>
                             </div>
 
-                             <div class="mb-3 form-floating">
+                            <div class="mb-3 form-floating">
                                 <input type="password" class="form-control " name="confirm_password" id="confirm_password"
                                     placeholder="Enter confirm_password" required>
                                 <label for="confirm_password"> Confirm Password</label>
-                                {{-- <span class="confirm_password"></span> --}}
+                                <span class="confirm_password"></span>
                             </div>
                             <button type="submit" class="btn btn-primary">Update Profile</button>
                         </form>
@@ -47,6 +45,5 @@
 
             </div>
         </div>
-        <div id="editor"></div>
     </div>
 @endsection

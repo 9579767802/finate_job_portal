@@ -62,7 +62,7 @@
                                         <li class="has-submenu"><a href="#/"><span>Find Jobs</span></a>
                                             <ul class="submenu-nav">
                                                 <li><a href="{{ route('jobs.show') }}"><span>Jobs</span></a></li>
-                                                {{-- <li><a href="job-details.html"><span>Job Details</span></a></li> --}}
+
                                             </ul>
                                         </li>
                                         {{-- <li><a href="{{ route('employers.index') }}"><span>Employers Details</span></a> --}}
@@ -88,10 +88,7 @@
                                         </li>
                                     @endif
                                     @if (Auth::user() && Auth::user()->role == 'admin')
-                                        <li class="has-submenu">
-                                            <a href="{{ route('job-categories.index') }}"><span>Job
-                                                    Categories</span></a>
-                                        </li>
+
                                         <li class="has-submenu">
                                             <a href="{{ route('admin.details') }}"><span>Employers Listings</span></a>
                                         </li>
